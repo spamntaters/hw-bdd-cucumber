@@ -19,15 +19,15 @@ end
 #   on the same page
 
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
-  #  ensure that that e1 occurs before e2.
-  #  page.body is the entire content of the page as a string.
-  fail "Unimplemented"
+  expect(page.body.match(/.*#{e1}.*#{e2}.*/))
 end
 
 # Make it easier to express checking or unchecking several boxes at once
 #  "When I uncheck the following ratings: PG, G, R"
 #  "When I check the following ratings: G"
-
+When /I follow "([^"]*)"$/ do |link|
+  click_link(link)
+end
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
   ratings = rating_list.split(", ")
   
